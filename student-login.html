@@ -10,19 +10,28 @@
   <div class="container">
     <h2>Student Login</h2>
     <form id="loginForm">
-      <input type="text" placeholder="Student ID" required />
-      <input type="password" placeholder="Password" required />
+      <input type="text" id="studentId" placeholder="Student ID" required />
+      <input type="password" id="password" placeholder="Password" required />
       <button type="submit" class="btn">Login</button>
     </form>
   </div>
 
   <script>
+    // This JavaScript ensures the login doesn't reload the page and redirects
     document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      window.location.href = "student-dashboard.html";
+      e.preventDefault(); // Stop the form from submitting normally
+
+      // (Optional) You can add dummy validation here if needed
+      const id = document.getElementById("studentId").value;
+      const pw = document.getElementById("password").value;
+
+      if (id && pw) {
+        // Redirect to dashboard
+        window.location.href = "student-dashboard.html";
+      } else {
+        alert("Please enter ID and password");
+      }
     });
   </script>
 </body>
 </html>
-
- 
