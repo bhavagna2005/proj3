@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard - CRS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="#" onclick="logout()">🚪 Logout</a>
+      </nav>
+      
+  <div class="container">
+    <h2>Welcome, Student 👋</h2>
+
+    <!-- YOUR COURSES SECTION -->
+    <section id="yourCoursesSection">
+      <h3>Your Courses</h3>
+      <ul id="yourCoursesList">
+        <!-- Enrolled courses will appear here -->
+      </ul>
+    </section>
+
+    <!-- AVAILABLE COURSES SECTION -->
+    <section>
+      <h3>Available Courses</h3>
+
+      <div class="course">
+        <p><strong>Web Development</strong> - 4 credits</p>
+        <button class="enroll-btn">Enroll</button>
+        <div class="reviews">
+          <p><strong>Ananya:</strong> “Loved building websites! Super beginner-friendly.”</p>
+        </div>
+      </div>
+
+      <div class="course">
+        <p><strong>Data Analytics</strong> - 3 credits</p>
+        <button class="enroll-btn">Enroll</button>
+        <div class="reviews">
+          <p><strong>Ishita:</strong> “Great intro to Python and Excel.”</p>
+        </div>
+      </div>
+
+      <div class="course">
+        <p><strong>AI & ML Basics</strong> - 3 credits</p>
+        <button class="enroll-btn">Enroll</button>
+        <div class="reviews">
+          <p><strong>Divya:</strong> “Explained tough concepts really simply.”</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SCRIPT TO HANDLE ENROLLMENT -->
+  <script>
+    const enrollButtons = document.querySelectorAll(".enroll-btn");
+    const yourCoursesList = document.getElementById("yourCoursesList");
+    const yourCoursesSection = document.getElementById("yourCoursesSection");
+
+    enrollButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const courseName = button.parentElement.querySelector("strong")?.innerText || "Course";
+
+        // Add to Your Courses
+        const li = document.createElement("li");
+        li.innerText = courseName;
+        yourCoursesList.appendChild(li);
+
+        // Update Button
+        button.textContent = "Enrolled ✅";
+        button.disabled = true;
+        button.style.backgroundColor = "#4caf50";
+
+        // Show the Your Courses section
+        yourCoursesSection.style.display = "block";
+      });
+    });
+
+    // Hide initially if no courses
+    if (!yourCoursesList.hasChildNodes()) {
+      yourCoursesSection.style.display = "none";
+    }
+  </script>
+  <script>
+    function logout() {
+      window.location.href = "index.html";
+    }
+  </script>
+  
+</body>
+</html>
+

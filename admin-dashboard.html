@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - CRS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="#" onclick="logout()">🚪 Logout</a>
+      </nav>
+      
+  <div class="container">
+    <h2>Welcome, Admin 👋</h2>
+
+    <section>
+      <h3>Overview</h3>
+      <p><strong>Total Students:</strong> 340</p>
+      <p><strong>Total Courses:</strong> 12</p>
+    </section>
+
+    <section>
+      <h3>Manage Courses</h3>
+      <table id="courseTable">
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Credits</th>
+            <th>Capacity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>
+                Web Development
+                <div class="reviews">
+                  <p><strong>Ananya (2023):</strong> “Honestly, I loved this course! Building websites made me feel super confident. Wish it had more JS though!”</p>
+                  <p><strong>Pooja (2022):</strong> “Very beginner-friendly. The instructor explained everything step by step.”</p>
+                </div>
+              </td>
+              <td>4</td>
+              <td>60</td>
+              <td>
+                <button class="btn edit-btn" onclick="editCourse(this)">Edit</button>
+                <button class="btn delete-btn" onclick="deleteCourse(this)">Delete</button>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                Data Analytics
+                <div class="reviews">
+                  <p><strong>Ishita (2023):</strong> “Challenging but worth it! Loved working with Python and dashboards.”</p>
+                  <p><strong>Sneha (2022):</strong> “Helped me prep for my internship — especially Excel and SQL parts.”</p>
+                </div>
+              </td>
+              <td>3</td>
+              <td>50</td>
+              <td>
+                <button class="btn edit-btn" onclick="editCourse(this)">Edit</button>
+                <button class="btn delete-btn" onclick="deleteCourse(this)">Delete</button>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                AI & ML Basics
+                <div class="reviews">
+                  <p><strong>Divya (2023):</strong> “Such a good intro to ML! I didn’t know anything at first, but now I get how models work.”</p>
+                  <p><strong>Fatima (2022):</strong> “I appreciated the way they broke down complex topics. Super beginner-friendly.”</p>
+                </div>
+              </td>
+              <td>3</td>
+              <td>45</td>
+              <td>
+                <button class="btn edit-btn" onclick="editCourse(this)">Edit</button>
+                <button class="btn delete-btn" onclick="deleteCourse(this)">Delete</button>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                Cloud Computing
+                <div class="reviews">
+                  <p><strong>Ritika (2023):</strong> “Loved doing hands-on AWS labs! Now I feel confident using cloud tools.”</p>
+                  <p><strong>Simran (2022):</strong> “Could use more visuals, but content was very solid.”</p>
+                </div>
+              </td>
+              <td>2</td>
+              <td>40</td>
+              <td>
+                <button class="btn edit-btn" onclick="editCourse(this)">Edit</button>
+                <button class="btn delete-btn" onclick="deleteCourse(this)">Delete</button>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                Blockchain Fundamentals
+                <div class="reviews">
+                  <p><strong>Kriti (2023):</strong> “So interesting! The real-life applications we discussed were mind-blowing.”</p>
+                  <p><strong>Meera (2022):</strong> “Loved the group project on NFTs. Made the tech feel real!”</p>
+                </div>
+              </td>
+              <td>3</td>
+              <td>35</td>
+              <td>
+                <button class="btn edit-btn" onclick="editCourse(this)">Edit</button>
+                <button class="btn delete-btn" onclick="deleteCourse(this)">Delete</button>
+              </td>
+            </tr>
+          
+            <tr>
+              <td>
+                UI/UX Design
+                <div class="reviews">
+                  <p><strong>Shreya (2023):</strong> “This was so creative! Loved working on Figma and presenting mockups.”</p>
+                  <p><strong>Isha (2022):</strong> “The final project was intense but fun — we built a full mobile app design!”</p>
+                </div>
+              </td>
+              <td>2</td>
+              <td>30</td>
+              <td>
+                <button class="btn edit-btn" onclick="editCourse(this)">Edit</button>
+                <button class="btn delete-btn" onclick="deleteCourse(this)">Delete</button>
+              </td>
+            </tr>
+          </tbody>          
+      </table>
+    </section>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editCourseModal" class="modal">
+    <div class="modal-content">
+      <h3>Edit Course</h3>
+      <form>
+        <input type="text" id="editName" placeholder="Course Name" required />
+        <input type="number" id="editCredits" placeholder="Credits" required />
+        <input type="number" id="editCapacity" placeholder="Capacity" required />
+        <button type="submit" class="btn">Save</button>
+        <button type="button" class="btn cancel-btn" onclick="closeEditForm()">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let selectedRow = null;
+
+    function editCourse(button) {
+      selectedRow = button.closest("tr");
+      const cells = selectedRow.getElementsByTagName("td");
+      const courseName = cells[0].childNodes[0].textContent.trim();
+
+      document.getElementById("editName").value = courseName;
+      document.getElementById("editCredits").value = cells[1].innerText;
+      document.getElementById("editCapacity").value = cells[2].innerText;
+
+      document.getElementById("editCourseModal").style.display = "block";
+    }
+
+    function closeEditForm() {
+      document.getElementById("editCourseModal").style.display = "none";
+    }
+
+    document.querySelector("#editCourseModal form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("editName").value;
+      const credits = document.getElementById("editCredits").value;
+      const capacity = document.getElementById("editCapacity").value;
+
+      if (selectedRow) {
+        const cells = selectedRow.getElementsByTagName("td");
+        cells[0].childNodes[0].textContent = name + " ";
+        cells[1].innerText = credits;
+        cells[2].innerText = capacity;
+      }
+
+      closeEditForm();
+    });
+
+    function deleteCourse(button) {
+      const row = button.closest("tr");
+      row.remove();
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("editCourseModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+  <script>
+    function logout() {
+      window.location.href = "index.html";
+    }
+  </script>
+  
+</body>
+</html>

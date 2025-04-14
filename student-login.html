@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Login - CRS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Student Login</h2>
+    <form onsubmit="return redirectToDashboard()">
+      <input type="text" placeholder="Student ID" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit" class="btn">Login</button>
+    </form>
+  </div>
+
+  <script>
+    function redirectToDashboard() {
+      window.location.href = "student-dashboard.html";
+      return false;
+    }
+  </script>
+</body>
+</html>
